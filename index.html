@@ -11,7 +11,7 @@
             overflow: hidden;
         }
         .box2{
-        	 position: absolute;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
@@ -29,50 +29,48 @@
     </style>
 </head>
 <body>
-    <div class="box2">
+<div class="box2">
 
-    </div>
+</div>
 </body>
 </html>
 <script>
     function on( curele,type,fn) {
-
         curele.addEventListener(type,fn,false)
     }
     var obox2=document.querySelector(".box2");
     on(obox2,'touchstart',function (ev) {
-     //  console.log(ev)
+        //  console.log(ev)
         this['strx']=ev.touches[0].clientX;
         this['stry']=ev.touches[0].clientY;
         this['isMove']=false
     })
     on(obox2,'touchmove',function (ev) {
-       var point=ev.touches[0]
-       var newx=point.clientX,newy=point.clientY;
-       if(Math.abs(newx-this['strx']>30)||Math.abs(newy-this['stry']>30)){
-       	this['isMove']=true;
-       }
+        var point=ev.touches[0]
+        var newx=point.clientX,newy=point.clientY;
+        if(Math.abs(newx-this['strx']>30)||Math.abs(newy-this['stry']>30)){
+            this['isMove']=true;
+        }
     })
     on(obox2,'touchend',function (ev) {
-		 if (this['isMove']===false) {  //点击
-		 		this.style.webkitTransitionDuration='1s'
-        		this.style.width= 200+'px';
-        		this.style.height= 200+'px';
-        		var _this=this;
-        		var delaytime=window.setTimeout(function(){
-        			_this.style.webkitTransitionDuration='0s'
-          			_this.style.width= 100+'px';
-        			_this.style.height= 100+'px';
-        		},1000)
+        if (this['isMove']===false) {  //点击
+            this.style.webkitTransitionDuration='1s'
+            this.style.webkitTransform='rotate(0deg)'
+            var delaytime1=window.setTimeout(function(){
+                this.style.webkitTransitionDuration='0s'
+                this.style.webkitTransform='rotate(360deg)'
+            }.bind(this),1000)// bind 改变this指向
+
         } else{ //滑动
-             this.style.webkitTransitionDuration='1s'
-        	 this.style.webkitTransform='rotate(180deg)'
-             var _this=this;
-             var delaytime=window.setTimeout(function(){
-                 _this.style.webkitTransitionDuration='0s'
-                 _this.style.width= 100+'px';
-                 _this.style.height= 100+'px';
-             },1000)
+            this.style.webkitTransitionDuration='1s'
+            this.style.width= 200+'px';
+            this.style.height= 200+'px';
+            var _this=this;
+            var delaytime=window.setTimeout(function(){
+                _this.style.webkitTransitionDuration='0s'
+                _this.style.width= 100+'px';
+                _this.style.height= 100+'px';
+            },1000)
         }
     })
 </script>
